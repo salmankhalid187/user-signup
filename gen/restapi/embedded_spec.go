@@ -32,6 +32,14 @@ func init() {
         ],
         "summary": "Sign up Api takes params and register user",
         "operationId": "signUpUser",
+        "parameters": [
+          {
+            "$ref": "#/parameters/name"
+          },
+          {
+            "$ref": "#/parameters/age"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -72,10 +80,16 @@ func init() {
     }
   },
   "parameters": {
-    "offset": {
+    "age": {
       "type": "string",
-      "default": "0",
-      "name": "offset",
+      "default": "22",
+      "name": "age",
+      "in": "query"
+    },
+    "name": {
+      "type": "string",
+      "default": "name",
+      "name": "name",
       "in": "query"
     },
     "orderBy": {
@@ -83,12 +97,6 @@ func init() {
       "type": "string",
       "default": "createddate",
       "name": "orderBy",
-      "in": "query"
-    },
-    "pageSize": {
-      "type": "string",
-      "default": "100",
-      "name": "pageSize",
       "in": "query"
     }
   },
@@ -140,6 +148,20 @@ func init() {
         ],
         "summary": "Sign up Api takes params and register user",
         "operationId": "signUpUser",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "name",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "22",
+            "name": "age",
+            "in": "query"
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -183,10 +205,16 @@ func init() {
     }
   },
   "parameters": {
-    "offset": {
+    "age": {
       "type": "string",
-      "default": "0",
-      "name": "offset",
+      "default": "22",
+      "name": "age",
+      "in": "query"
+    },
+    "name": {
+      "type": "string",
+      "default": "name",
+      "name": "name",
       "in": "query"
     },
     "orderBy": {
@@ -194,12 +222,6 @@ func init() {
       "type": "string",
       "default": "createddate",
       "name": "orderBy",
-      "in": "query"
-    },
-    "pageSize": {
-      "type": "string",
-      "default": "100",
-      "name": "pageSize",
       "in": "query"
     }
   },

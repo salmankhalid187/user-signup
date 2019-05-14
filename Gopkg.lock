@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:3d3a509c5ba327e8573bb57f9da8430c63a46a06886eb1d2ffc8af4e76f31c72"
+  name = "cloud.google.com/go"
+  packages = ["civil"]
+  pruneopts = "UT"
+  revision = "775730d6e48254a2430366162cf6298e5368833c"
+  version = "v0.39.0"
+
+[[projects]]
   digest = "1:a2682518d905d662d984ef9959984ef87cecb777d379bfa9d9fe40e78069b3e4"
   name = "github.com/PuerkitoBio/purell"
   packages = ["."]
@@ -32,6 +40,17 @@
   packages = ["logging"]
   pruneopts = "UT"
   revision = "e122ce89162785e015210ea3a48b1a9a54c5cd55"
+
+[[projects]]
+  branch = "master"
+  digest = "1:c9dd44a96bdb9689436c2a1adbbcaba649ff4d51711e1aeab408f4e177dce8a5"
+  name = "github.com/denisenkom/go-mssqldb"
+  packages = [
+    ".",
+    "internal/cp",
+  ]
+  pruneopts = "UT"
+  revision = "731ef375ac027e24d275c5432221dbec5007a647"
 
 [[projects]]
   digest = "1:e95ef557dc3120984bb66b385ae01b4bb8ff56bcde28e7b0d1beed0cccc4d69f"
@@ -153,6 +172,25 @@
   version = "v1.4.0"
 
 [[projects]]
+  digest = "1:6d777d5c19248cf4594c74ca0019a09fccef7f07f91c10d840d1235b5921c737"
+  name = "github.com/jinzhu/gorm"
+  packages = [
+    ".",
+    "dialects/mssql",
+  ]
+  pruneopts = "UT"
+  revision = "b7156195f7f3415f97c20abbd6aff894b847fee8"
+  version = "v1.9.8"
+
+[[projects]]
+  branch = "master"
+  digest = "1:fd97437fbb6b7dce04132cf06775bd258cce305c44add58eb55ca86c6c325160"
+  name = "github.com/jinzhu/inflection"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "04140366298a54a039076d798123ffa108fff46c"
+
+[[projects]]
   digest = "1:31e761d97c76151dde79e9d28964a812c46efc5baee4085b86f68f0c654450de"
   name = "github.com/konsorten/go-windows-terminal-sequences"
   packages = ["."]
@@ -187,6 +225,14 @@
   pruneopts = "UT"
   revision = "8bdbc7bcc01dcbb8ec23dc8a28e332258d25251f"
   version = "v1.4.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:100a36e16f77aaad7c9144ab26bcefb92c5b6ebed5b137f935fdc11f541fa5b8"
+  name = "golang.org/x/crypto"
+  packages = ["md4"]
+  pruneopts = "UT"
+  revision = "22d7a77e9e5f409e934ed268692e56707cd169e5"
 
 [[projects]]
   branch = "master"
@@ -256,6 +302,8 @@
     "github.com/go-openapi/strfmt",
     "github.com/go-openapi/swag",
     "github.com/jessevdk/go-flags",
+    "github.com/jinzhu/gorm",
+    "github.com/jinzhu/gorm/dialects/mssql",
     "github.com/sirupsen/logrus",
     "golang.org/x/net/netutil",
   ]

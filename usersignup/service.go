@@ -4,12 +4,14 @@ import (
 	"context"
 	"time"
 
+	"github.com/salmankhalid187/user-signup/gen/restapi/operations/signup"
+
 	"github.com/salmankhalid187/user-signup/gen/models"
 )
 
 // Service handles async log of audit event
 type Service interface {
-	SignupUser(ctx context.Context) (*models.SignupSuccess, error)
+	SignupUser(ctx context.Context, params *signup.SignUpUserParams) (*models.SignupSuccess, error)
 }
 
 type service struct {
@@ -22,8 +24,9 @@ func New(repo Repository) Service {
 	}
 }
 
-func (s *service) SignupUser(ctx context.Context) (*models.SignupSuccess, error) {
+func (s *service) SignupUser(ctx context.Context, params *signup.SignUpUserParams) (*models.SignupSuccess, error) {
 
+	s.repo.SignupUser(ctx, params)
 	t := time.Now()
 	signUpSuccess := models.SignupSuccess{
 		Name: t.String(),

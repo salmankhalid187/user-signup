@@ -11,7 +11,7 @@ import (
 func Configure(api *operations.UserSignUpApisAPI, service Service) {
 
 	api.SignupSignUpUserHandler = signup.SignUpUserHandlerFunc(func(params signup.SignUpUserParams) middleware.Responder {
-		result, err := service.SignupUser(params.HTTPRequest.Context())
+		result, err := service.SignupUser(params.HTTPRequest.Context(), &params)
 		if err != nil {
 			return swagger.SignupErrorHandler("GetHealth", err)
 		}

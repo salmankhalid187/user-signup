@@ -13,7 +13,12 @@ import (
 
 // SignUpUserURL generates an URL for the sign up user operation
 type SignUpUserURL struct {
+	Age  *string
+	Name *string
+
 	_basePath string
+	// avoid unkeyed usage
+	_ struct{}
 }
 
 // WithBasePath sets the base path for this url builder, only required when it's different from the
@@ -42,6 +47,26 @@ func (o *SignUpUserURL) Build() (*url.URL, error) {
 		_basePath = "/v1"
 	}
 	_result.Path = golangswaggerpaths.Join(_basePath, _path)
+
+	qs := make(url.Values)
+
+	var age string
+	if o.Age != nil {
+		age = *o.Age
+	}
+	if age != "" {
+		qs.Set("age", age)
+	}
+
+	var name string
+	if o.Name != nil {
+		name = *o.Name
+	}
+	if name != "" {
+		qs.Set("name", name)
+	}
+
+	_result.RawQuery = qs.Encode()
 
 	return &_result, nil
 }

@@ -8,6 +8,9 @@ paths:
     get:
       summary: Sign up Api takes params and register user
       operationId: signUpUser
+      parameters:
+        - $ref: '#/parameters/name'
+        - $ref: '#/parameters/age'
       responses:
         '200':
           description: 'Success'
@@ -59,16 +62,16 @@ responses:
       $ref: '#/definitions/error-response'
 
 parameters:
-  pageSize:
-    name: pageSize
+  name:
+    name: name
     in: query
     type: string
-    default: '100'
-  offset:
-    name: offset
+    default: 'name'
+  age:
+    name: age
     in: query
     type: string
-    default: '0'
+    default: '22'
   orderBy:
     name: orderBy
     in: query
