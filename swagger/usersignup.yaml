@@ -1,0 +1,77 @@
+swagger: '2.0'
+info:
+  title: User Sign up APIs
+  version: '0.1'
+basePath: /v1
+paths:
+  /signup:
+    get:
+      summary: Sign up Api takes params and register user
+      operationId: signUpUser
+      responses:
+        '200':
+          description: 'Success'
+          schema:
+            $ref: '#/definitions/signup-success'
+        '400':
+          $ref: '#/responses/invalid-request'
+      tags:
+        - signup
+
+definitions:
+  signup-success:
+    type: object
+    title: Signup success
+    description: Signup success response object
+    properties:
+      name:
+        type: string
+  error-response:
+    type: object
+    title: Error Response
+    description: Standard error format
+    properties:
+      Code:
+        type: string
+      Message:
+        type: string
+
+responses:
+  unauthorized:
+    description: Unauthorized
+    schema:
+      $ref: '#/definitions/error-response'
+  invalid-request:
+    description: Invalid request
+    schema:
+      $ref: '#/definitions/error-response'
+  forbidden:
+    description: Insufficient privilege to execute action.
+    schema:
+      $ref: '#/definitions/error-response'
+  not-found:
+    description: Not found.
+    schema:
+      $ref: '#/definitions/error-response'
+  conflict:
+    description: Duplicate resource
+    schema:
+      $ref: '#/definitions/error-response'
+
+parameters:
+  pageSize:
+    name: pageSize
+    in: query
+    type: string
+    default: '100'
+  offset:
+    name: offset
+    in: query
+    type: string
+    default: '0'
+  orderBy:
+    name: orderBy
+    in: query
+    type: string
+    default: 'createddate'
+    pattern: '^[A-Za-z0-9_]+$'
