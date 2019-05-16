@@ -12,11 +12,11 @@ import (
 type User struct {
 	gorm.Model
 	Name string
-	Age  string
+	Age  float64
 }
 
 type Repository interface {
-	SignupUser(ctx context.Context, params *signup.SignUpUserParams) (bool, error)
+	SignupUser(ctx context.Context, params *signup.CreateUserParams) (bool, error)
 }
 
 type repository struct {
@@ -30,10 +30,10 @@ func NewRepository(db *gorm.DB) Repository {
 	}
 }
 
-func (r *repository) SignupUser(ctx context.Context, params *signup.SignUpUserParams) (bool, error) {
+func (r *repository) SignupUser(ctx context.Context, params *signup.CreateUserParams) (bool, error) {
 
 	r.db.AutoMigrate(&User{})
 	// Create
-	r.db.Create(&User{Name: *params.Name, Age: *params.Age})
+	r.db.Create(&User{Name: *params.User.Name, Age: *params.User.Age})
 	return true, nil
 }

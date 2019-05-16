@@ -11,6 +11,7 @@ import (
 	middleware "github.com/go-openapi/runtime/middleware"
 
 	"github.com/salmankhalid187/user-signup/gen/restapi/operations"
+	"github.com/salmankhalid187/user-signup/gen/restapi/operations/currenttime"
 	"github.com/salmankhalid187/user-signup/gen/restapi/operations/signup"
 )
 
@@ -34,9 +35,14 @@ func configureAPI(api *operations.UserSignUpApisAPI) http.Handler {
 
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.SignupSignUpUserHandler == nil {
-		api.SignupSignUpUserHandler = signup.SignUpUserHandlerFunc(func(params signup.SignUpUserParams) middleware.Responder {
-			return middleware.NotImplemented("operation signup.SignUpUser has not yet been implemented")
+	if api.SignupCreateUserHandler == nil {
+		api.SignupCreateUserHandler = signup.CreateUserHandlerFunc(func(params signup.CreateUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation signup.CreateUser has not yet been implemented")
+		})
+	}
+	if api.CurrenttimeGetCurrentTimeHandler == nil {
+		api.CurrenttimeGetCurrentTimeHandler = currenttime.GetCurrentTimeHandlerFunc(func(params currenttime.GetCurrentTimeParams) middleware.Responder {
+			return middleware.NotImplemented("operation currenttime.GetCurrentTime has not yet been implemented")
 		})
 	}
 

@@ -28,5 +28,5 @@ func ErrorResponse(err error) *models.ErrorResponse {
 func SignupErrorHandler(label string, err error) middleware.Responder {
 
 	logrus.WithError(err).Error(label)
-	return signup.NewSignUpUserBadRequest().WithPayload(ErrorResponse(err))
+	return signup.NewCreateUserBadRequest().WithPayload(ErrorResponse(err))
 }

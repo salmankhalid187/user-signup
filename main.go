@@ -7,6 +7,7 @@ import (
 	log "github.com/daesu/payments/logging"
 	"github.com/go-openapi/loads"
 	"github.com/salmankhalid187/user-signup/cmd"
+	"github.com/salmankhalid187/user-signup/currenttime"
 	"github.com/salmankhalid187/user-signup/gen/restapi"
 	"github.com/salmankhalid187/user-signup/gen/restapi/operations"
 	"github.com/salmankhalid187/user-signup/usersignup"
@@ -36,10 +37,12 @@ func start(db *gorm.DB) {
 
 	api := operations.NewUserSignUpApisAPI(swaggerSpec)
 
-	// Health setup
 	repo := usersignup.NewRepository(db)
 	signUpService := usersignup.New(repo)
 	usersignup.Configure(api, signUpService)
+
+	currentTimeService := currenttime.New()
+	currenttime.Configure(api, currentTimeService)
 
 	if err := cmd.Start(api, *portFlag); err != nil {
 		log.Fatal("Failed to start", err)

@@ -25,19 +25,50 @@ func init() {
   },
   "basePath": "/v1",
   "paths": {
-    "/signup": {
+    "/current-time": {
       "get": {
+        "tags": [
+          "currenttime"
+        ],
+        "summary": "Sign up Api takes params and register user",
+        "operationId": "getCurrentTime",
+        "parameters": [
+          {
+            "$ref": "#/parameters/name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/currenttime-success"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/invalid-request"
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
         "tags": [
           "signup"
         ],
         "summary": "Sign up Api takes params and register user",
-        "operationId": "signUpUser",
+        "operationId": "createUser",
         "parameters": [
           {
-            "$ref": "#/parameters/name"
-          },
-          {
-            "$ref": "#/parameters/age"
+            "description": "user detail param here",
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user-signup"
+            }
           }
         ],
         "responses": {
@@ -55,6 +86,16 @@ func init() {
     }
   },
   "definitions": {
+    "currenttime-success": {
+      "description": "Time success response object",
+      "type": "object",
+      "title": "Current Time Success",
+      "properties": {
+        "time": {
+          "type": "string"
+        }
+      }
+    },
     "error-response": {
       "description": "Standard error format",
       "type": "object",
@@ -77,15 +118,26 @@ func init() {
           "type": "string"
         }
       }
+    },
+    "user-signup": {
+      "description": "properties to create a user",
+      "type": "object",
+      "title": "user-signup",
+      "required": [
+        "name",
+        "age"
+      ],
+      "properties": {
+        "age": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     }
   },
   "parameters": {
-    "age": {
-      "type": "string",
-      "default": "22",
-      "name": "age",
-      "in": "query"
-    },
     "name": {
       "type": "string",
       "default": "name",
@@ -141,25 +193,56 @@ func init() {
   },
   "basePath": "/v1",
   "paths": {
-    "/signup": {
+    "/current-time": {
       "get": {
         "tags": [
-          "signup"
+          "currenttime"
         ],
         "summary": "Sign up Api takes params and register user",
-        "operationId": "signUpUser",
+        "operationId": "getCurrentTime",
         "parameters": [
           {
             "type": "string",
             "default": "name",
             "name": "name",
             "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/currenttime-success"
+            }
           },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/error-response"
+            }
+          }
+        }
+      }
+    },
+    "/signup": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "tags": [
+          "signup"
+        ],
+        "summary": "Sign up Api takes params and register user",
+        "operationId": "createUser",
+        "parameters": [
           {
-            "type": "string",
-            "default": "22",
-            "name": "age",
-            "in": "query"
+            "description": "user detail param here",
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/user-signup"
+            }
           }
         ],
         "responses": {
@@ -180,6 +263,16 @@ func init() {
     }
   },
   "definitions": {
+    "currenttime-success": {
+      "description": "Time success response object",
+      "type": "object",
+      "title": "Current Time Success",
+      "properties": {
+        "time": {
+          "type": "string"
+        }
+      }
+    },
     "error-response": {
       "description": "Standard error format",
       "type": "object",
@@ -202,15 +295,26 @@ func init() {
           "type": "string"
         }
       }
+    },
+    "user-signup": {
+      "description": "properties to create a user",
+      "type": "object",
+      "title": "user-signup",
+      "required": [
+        "name",
+        "age"
+      ],
+      "properties": {
+        "age": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     }
   },
   "parameters": {
-    "age": {
-      "type": "string",
-      "default": "22",
-      "name": "age",
-      "in": "query"
-    },
     "name": {
       "type": "string",
       "default": "name",

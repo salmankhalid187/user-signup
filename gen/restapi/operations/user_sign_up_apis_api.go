@@ -19,6 +19,7 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
+	"github.com/salmankhalid187/user-signup/gen/restapi/operations/currenttime"
 	"github.com/salmankhalid187/user-signup/gen/restapi/operations/signup"
 )
 
@@ -39,8 +40,11 @@ func NewUserSignUpApisAPI(spec *loads.Document) *UserSignUpApisAPI {
 		BearerAuthenticator: security.BearerAuth,
 		JSONConsumer:        runtime.JSONConsumer(),
 		JSONProducer:        runtime.JSONProducer(),
-		SignupSignUpUserHandler: signup.SignUpUserHandlerFunc(func(params signup.SignUpUserParams) middleware.Responder {
-			return middleware.NotImplemented("operation SignupSignUpUser has not yet been implemented")
+		SignupCreateUserHandler: signup.CreateUserHandlerFunc(func(params signup.CreateUserParams) middleware.Responder {
+			return middleware.NotImplemented("operation SignupCreateUser has not yet been implemented")
+		}),
+		CurrenttimeGetCurrentTimeHandler: currenttime.GetCurrentTimeHandlerFunc(func(params currenttime.GetCurrentTimeParams) middleware.Responder {
+			return middleware.NotImplemented("operation CurrenttimeGetCurrentTime has not yet been implemented")
 		}),
 	}
 }
@@ -73,8 +77,10 @@ type UserSignUpApisAPI struct {
 	// JSONProducer registers a producer for a "application/json" mime type
 	JSONProducer runtime.Producer
 
-	// SignupSignUpUserHandler sets the operation handler for the sign up user operation
-	SignupSignUpUserHandler signup.SignUpUserHandler
+	// SignupCreateUserHandler sets the operation handler for the create user operation
+	SignupCreateUserHandler signup.CreateUserHandler
+	// CurrenttimeGetCurrentTimeHandler sets the operation handler for the get current time operation
+	CurrenttimeGetCurrentTimeHandler currenttime.GetCurrentTimeHandler
 
 	// ServeError is called when an error is received, there is a default handler
 	// but you can set your own with this
@@ -138,8 +144,12 @@ func (o *UserSignUpApisAPI) Validate() error {
 		unregistered = append(unregistered, "JSONProducer")
 	}
 
-	if o.SignupSignUpUserHandler == nil {
-		unregistered = append(unregistered, "signup.SignUpUserHandler")
+	if o.SignupCreateUserHandler == nil {
+		unregistered = append(unregistered, "signup.CreateUserHandler")
+	}
+
+	if o.CurrenttimeGetCurrentTimeHandler == nil {
+		unregistered = append(unregistered, "currenttime.GetCurrentTimeHandler")
 	}
 
 	if len(unregistered) > 0 {
@@ -240,10 +250,15 @@ func (o *UserSignUpApisAPI) initHandlerCache() {
 		o.handlers = make(map[string]map[string]http.Handler)
 	}
 
+	if o.handlers["POST"] == nil {
+		o.handlers["POST"] = make(map[string]http.Handler)
+	}
+	o.handlers["POST"]["/signup"] = signup.NewCreateUser(o.context, o.SignupCreateUserHandler)
+
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/signup"] = signup.NewSignUpUser(o.context, o.SignupSignUpUserHandler)
+	o.handlers["GET"]["/current-time"] = currenttime.NewGetCurrentTime(o.context, o.CurrenttimeGetCurrentTimeHandler)
 
 }
 

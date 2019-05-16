@@ -5,12 +5,18 @@ info:
 basePath: /v1
 paths:
   /signup:
-    get:
+    post:
       summary: Sign up Api takes params and register user
-      operationId: signUpUser
+      operationId: createUser
+      consumes:
+        - application/json
       parameters:
-        - $ref: '#/parameters/name'
-        - $ref: '#/parameters/age'
+        - in: body
+          description: user detail param here
+          name: user
+          required: true
+          schema:
+            $ref: '#/definitions/user-signup'
       responses:
         '200':
           description: 'Success'
@@ -20,14 +26,48 @@ paths:
           $ref: '#/responses/invalid-request'
       tags:
         - signup
+  /current-time:
+    get:
+      summary: Sign up Api takes params and register user
+      operationId: getCurrentTime
+      parameters:
+        - $ref: '#/parameters/name'
+      responses:
+        '200':
+          description: 'Success'
+          schema:
+            $ref: '#/definitions/currenttime-success'
+        '400':
+          $ref: '#/responses/invalid-request'
+      tags:
+        - currenttime
 
 definitions:
+  user-signup:
+    type: object
+    title: user-signup
+    description: properties to create a user
+    required:
+      - name
+      - age
+    properties:
+      name:
+        type: string
+      age:
+        type: number
   signup-success:
     type: object
     title: Signup success
     description: Signup success response object
     properties:
       name:
+        type: string
+  currenttime-success:
+    type: object
+    title: Current Time Success
+    description: Time success response object
+    properties:
+      time:
         type: string
   error-response:
     type: object
@@ -67,11 +107,6 @@ parameters:
     in: query
     type: string
     default: 'name'
-  age:
-    name: age
-    in: query
-    type: string
-    default: '22'
   orderBy:
     name: orderBy
     in: query
