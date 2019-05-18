@@ -18,7 +18,12 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mssql"
 )
 
-func start(db *gorm.DB) {
+const dbUserName = "sa"
+const dbPassword = "reallyStrongPwd123"
+const serverName = "localhost"
+const dataBaseName = "TutorialDB"
+
+func startApiServer(db *gorm.DB) {
 
 	host, err := os.Hostname()
 	if err != nil {
@@ -49,11 +54,20 @@ func start(db *gorm.DB) {
 	}
 }
 
-func main() {
-	db, err := gorm.Open("mssql", "sqlserver://sa:reallyStrongPwd123@localhost:1433?database=TutorialDB")
+func connectDb() (db *gorm.DB) {
+
+	db, err := gorm.Open("mssql", "sqlserver://"+dbUserName+":"+dbPassword+"@"+serverName+":1433?database="+dataBaseName)
 	if err != nil {
 		log.Println("Error while connecting to data base")
+		return nil
 	}
+
+	return db
+
+}
+
+func main() {
+	db := connectDb()
 	defer db.Close()
-	start(db)
+	startApiServer(db)
 }
